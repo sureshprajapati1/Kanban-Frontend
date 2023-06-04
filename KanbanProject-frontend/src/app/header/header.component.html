@@ -1,0 +1,17 @@
+<div class="topnav" >
+        
+   
+    <img style="margin-right:30px" src="../../assets/assets/kanban logo1.png" alt="logo" style="width: 30px;margin-top: 10px; margin-left: -94.5%;height: 30px;padding-right: 40px;">
+
+    <a  style="color:black;font-family: 'Great Vibes', cursive;margin-left: 75px; font-size: 20px; margin-left: 70px;" routerLink=""><p>Kanban Board</p></a>
+    <a  style="color: black; margin-left:65%" *ngIf="!loggedin()" routerLink="/register"><mat-icon>account_box</mat-icon></a>
+    <!-- <a  style="color: black;" routerLink="/login"><mat-icon *ngIf="loggedIn!==true">login</mat-icon></a>
+    <a  style="color: black;" routerLink="/login"><mat-icon *ngIf="loggedIn===true">logout</mat-icon></a> -->
+   
+    <mat-icon style="color: black; margin-left:95%; margin-top: 16px;"  *ngIf="!loggedin()" matTooltip="login" routerLink="/login">login</mat-icon>
+    <mat-icon style="color: black; margin-left:167%"  *ngIf="loggedin()" matTooltip="logout" (click)="logout()" routerLink="/login">logout</mat-icon>
+
+
+
+</div>
+<router-outlet></router-outlet>

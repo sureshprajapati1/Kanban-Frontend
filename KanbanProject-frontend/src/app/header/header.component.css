@@ -1,0 +1,113 @@
+#header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+    background-color:  radial-gradient(rgb(153, 104, 153), #201727);
+    margin-bottom: 30px;
+}
+#icons {
+    position: absolute;
+    right: 10px;
+    color: whitesmoke;
+    
+}
+#icons > * {
+    margin-right: 15px;
+    color: whitesmoke;
+}
+h1{
+    color: whitesmoke;
+    margin-left: 15px;
+    padding-top: 10px;
+    font-size:40px;
+   
+}
+h2{
+    text-align: center;
+  }
+  .color{
+    font-size:20px;
+    background-color:grey; 
+    color:whitesmoke ;
+    border-radius: 30px;
+    margin: 0px;
+  }
+
+
+  #headingFond{
+    font-family: 'Satisfy', cursive;
+  }
+  
+  body {
+      margin: 0;
+      font-family: Arial, Helvetica;
+      
+    }
+    
+    .topnav {
+       padding-top: 10px;
+       padding-right: 10px;
+     overflow: hidden;
+     background-color:  rgb(105, 67, 134);
+
+box-shadow: 2px 2px  8px black;
+      
+    }
+
+    
+    
+    .topnav a {
+      float: left;
+      color: #4b4343;
+      text-align: center;
+      padding: 17px 16px; 
+      text-decoration: none;
+      font-size: 17px;
+      margin-left: 10px;
+    }
+    
+    .topnav a:hover {
+      background-color: #ddd;
+      color: black;
+    }
+    
+    .topnav a.active {
+      background-color: #04AA6D;
+      color: white;
+    }
+    
+    body{
+      width: 100%;
+    height: 100vh;
+    /* background: radial-gradient(#e0c8f8, #f6f5f7); */
+    background: radial-gradient( rgb(245, 243, 247), rgb(235, 225, 242));
+    }
+    #footer {
+      width: 90%;
+      bottom: 0px;
+      height: 71px;
+      font-family: Arial, Helvetica;
+      font-size: 12px;
+      color: #343434
+    }
+    
+    
+    #footer li {
+      display: inline;
+      list-style-type: none;
+    }
+    
+    #footer li a {
+      color: #343434;
+      text-decoration: none;
+    }
+    
+    #footer li a:visited {
+      text-decoration: none
+    }
+    #b{
+      border-top: 8px solid #254A73;
+    }
+    /* .image{
+      background: url(../../assets/assets/);
+    } */

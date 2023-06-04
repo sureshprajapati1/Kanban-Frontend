@@ -1,0 +1,23 @@
+<mat-form-field appeareance="fill">
+    <mat-label>add assigned menbers</mat-label>
+    <mat-select name="add" [(value)]="emailId">
+      <mat-option *ngFor="let e of email" [value]="e">{{e}}</mat-option>
+    </mat-select>
+</mat-form-field>
+<br>
+
+<button mat-icon-button color="primary" (click)="addAssignmemberintask()">
+    <mat-icon>add</mat-icon>
+  </button>
+  <br>
+  <!-- <mat-form-field appeareance="fill">
+    <mat-label>add assigned menbers</mat-label>
+    <mat-select name="add" [(value)]="emailId">
+      <mat-option *ngFor="let e of email" [value]="e">{{e}}</mat-option>
+    </mat-select>
+</mat-form-field>
+<br>
+
+<button mat-icon-button color="primary" (click)="addAssignmemberintask()">
+    <mat-icon>add</mat-icon>
+  </button> -->

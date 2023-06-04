@@ -1,0 +1,414 @@
+<mat-drawer-container class="example-container">
+    <mat-drawer mode="side" opened>
+        <h2>Welcome,</h2>
+
+        <img *ngIf="userDetail.image" style="width:50px; height: 50px; border-radius: 100px; " src="data:image/JPEG;base64,{{userDetail.image.data}}">
+        <h4 style="font-size: 20px; margin-top: -20px; margin-left:60px;">{{userDetail.name}}</h4>
+        <!-- <h2>{{userDetail.name}}</h2> -->
+        <hr>
+        <br>
+        <!-- Create New Kanban -->
+
+
+        <!-- Add new KANBAN -->
+        <div>
+
+            <mat-expansion-panel style="display: block;height: min-content;width: min-content;margin: 2%;">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Create kanban
+                    </mat-panel-title>
+
+                </mat-expansion-panel-header>
+
+                <form action="submit" #TaskForm="ngForm">
+
+                    <div class="form-group">
+
+                        <form action="submit" #kanbanForm="ngForm" style="margin-top: -10px;">
+                            <div class="form-group">
+
+                                <mat-form-field class="col-md-6"
+                                    style="margin-left: 10px; width: 170px; text-align: center;">
+                                    <input matInput name="kanbanTitle" [(ngModel)]="kanban.kanbanTitle" type="text"
+                                        class="form-control" #KanbanTitle="ngModel" placeholder="Kanban Title" required
+                                        maxlength="50" />
+                                </mat-form-field>
+                            </div>
+
+                            <button class="color" mat-raised-button type="submit" [disabled]=!kanbanForm.valid
+                                (click)="saveKanban()" style="margin-left: 10px; width: 170px;">Create Kanban</button>
+                        </form>
+                    </div>
+                </form>
+            </mat-expansion-panel>
+        </div>
+
+
+
+        <hr>
+        <br>
+        <!-- Displaying All the Kanban -->
+        <h2>Your Kanban</h2> <span>No of kanbans created : {{Kanbans.length}}</span>
+
+        <div style="margin-top: 15px;">
+            <div *ngFor="let kanban of Kanbans">
+
+                <mat-card class="shadow">
+                    <mat-card-content>
+                        <div class="row">
+
+                            <div class="span"> <a class="span" mat-list-item (click)="getStatus(kanban)"
+                                    style="margin-top: -12px;">{{kanban.kanbanTitle}}</a> </div>
+
+
+
+                            <div class="span" style="margin-top: -7px; margin-right: 5px;"> <button mat-icon-button
+                                    [matMenuTriggerFor]="menu1"> <mat-icon
+                                        style="font-size: 17px;">more_vert</mat-icon></button> </div>
+
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+
+                <mat-menu #menu1="matMenu">
+                    <button mat-menu-item>
+                        <mat-icon style="font-size: 20px;">update</mat-icon><span
+                            style="font-size: 14px;  margin-left: -12px;" (click)="changeShow()">update Kanban</span>
+                    </button>
+
+                    <button mat-menu-item (click)="deleteKanban(kanban)">
+                        <mat-icon style="font-size: 20px;">delete_forever</mat-icon><span
+                            style="font-size: 14px;  margin-left: -12px;">Delete Kanban</span>
+                    </button>
+
+                    <button mat-menu-item (click)="clickmethod(kanban)">
+                        <mat-icon style="font-size: 20px;">add</mat-icon><span
+                            style="font-size: 14px;  margin-left: -12px;">add Members</span>
+                    </button>
+
+                    <button mat-menu-item (click)="deletemethod(kanban)">
+                        <mat-icon style="font-size: 20px;">delete</mat-icon><span
+                            style="font-size: 14px;  margin-left: -12px;">delete Members</span>
+                    </button>
+                </mat-menu>
+
+
+                <form *ngIf="show" action="submit" #kanbanForm="ngForm" style="margin-top: -10px;">
+                    <div class="form-group">
+                        <mat-form-field class="col-md-6" style="margin-left: 10px; width: 170px; text-align: center;">
+                            <input matInput name="kanbanTitle" value="kanban.kanbanTitle"
+                                [(ngModel)]="kanban.kanbanTitle" type="text" class="form-control" #KanbanTitle="ngModel"
+                                placeholder="Kanban Title" required maxlength="50" />
+                        </mat-form-field>
+                    </div>
+
+                    <button mat-raised-button color="primary" type="submit" [disabled]=!kanbanForm.valid
+                        (click)="updateKanban(kanban)" style="margin-left: 10px; width: 170px;">Update Kanban</button>
+                </form>
+
+
+            </div>
+        </div>
+        <hr>
+        <br>
+
+        <div>
+            <h2>Guest Kanban</h2><span>No of guest kanbans created : {{guestKanbans.length}}</span>
+            <!-- Displaying All the guest Kanban -->
+            <div style="margin-top: 15px;">
+                <div *ngFor="let kan of guestKanbans">
+
+                    <mat-card class="shadow">
+                        <mat-card-content>
+                            <div class="row">
+                                <div class="span">
+                                    <a mat-list-item (click)="getStatus1(kan)"
+                                        style="margin-top: -12px;">{{kan.kanbanTitle}}</a>
+                                </div>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+
+
+
+     
+
+    </mat-drawer>
+
+    <mat-drawer-content class="image">
+        <mat-toolbar style="z-index: 4;position: fixed;">
+            <span style="position: fixed;">Title : {{kanban.kanbanTitle}}</span>
+            <button mat-button matTooltip="Manage Profile" style="margin-left: 68%; font-size: 17px; position: fixed;"
+                [matMenuTriggerFor]="menu">
+                <mat-icon style="margin-top: -4px;margin-right: 4px;">person</mat-icon>Account
+            </button>
+
+            
+                <mat-card
+                    style="margin-left: 250px;text-align: center; border: 1px solid rgba(0, 0, 0, 0.235);padding: 3px;border-radius: 8px;width: 450px;height: 70px; ">
+                    <h4 style="font-weight: 500; color:rgba(0, 0, 0, 0.445)">Priority Levels</h4>
+                   
+                    <div style="display: flex; margin-left: 20px;  padding-left: 20px;">
+                        <i class="high" style="margin-left:-3px; font-size: 17px;color: red;"><mat-icon>flag</mat-icon></i>
+                        <mat-card-subtitle style="margin-top: -2px; margin-left:3px;color: black;">- High Priority
+                        </mat-card-subtitle>
+                        <i class="medium"
+                        style="margin-left:-3px; font-size: 17px;color: orange;"><mat-icon>flag</mat-icon></i>
+                    <mat-card-subtitle style="margin-top: -2px; margin-left:3px;color: black;">- Medium Priority
+                    </mat-card-subtitle>
+                    <i class="low" style="margin-left:-3px; font-size: 17px;color: green;"><mat-icon>flag</mat-icon></i>
+                        <mat-card-subtitle style="margin-top: -2px; margin-left:3px;color: black;">- Low Priority
+                        </mat-card-subtitle>
+                    </div>
+
+              
+                    <!-- <div style="display: flex;margin-left: 5px; ">
+                        <i class="medium"
+                            style="margin-left:-3px; font-size: 17px;color: orange;"><mat-icon>flag</mat-icon></i>
+                        <mat-card-subtitle style="margin-top: -2px; margin-left:3px;color: black;">---- Medium Priority
+                        </mat-card-subtitle>
+                    </div>
+
+                    <div style="display: flex;margin-left: 5px; ">
+                        <i class="low" style="margin-left:-3px; font-size: 17px;color: green;"><mat-icon>flag</mat-icon></i>
+                        <mat-card-subtitle style="margin-top: -2px; margin-left:3px;color: black;">---- Low Priority
+                        </mat-card-subtitle>
+                    </div> -->
+                </mat-card>
+           
+
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="openProfile()">
+                    <mat-icon style="width: 10px;font-size: 19px;">account_circle</mat-icon>Profile
+                </button>
+                <!-- <button mat-menu-item routerLink="/login" style="margin-top: -12px;">
+                    <mat-icon style="width: 10px; font-size: 19px;">logout</mat-icon>Logout
+                </button> -->
+            </mat-menu>
+
+        </mat-toolbar>
+
+
+
+        <!-- Add Content Here -->
+        <div style="display:flex; ">
+
+            <!-- All status by space and email component -->
+            <div style="display:inline-flex;margin-top: 80px;">
+                <div *ngFor="let s of status" style=" width:300px; margin:1%;display: block; ">
+                    <mat-card style="display: block;height: min-content;margin-left: 6px;padding-left: 8px;">
+                        {{s.statusTitle}}
+                        <button mat-icon-button [matMenuTriggerFor]="menu"
+                            style="float: right;margin-top: -10px;align-items: center; color: black;">
+                            <mat-icon style="font-size: 19px;">more_horiz</mat-icon>
+                        </button>
+<div *ngIf="kanban.emailId===emailId">
+                        <button mat-icon-button (click)="addTask(s)"
+                            style="float: right;margin-top: -30px;align-items: center; color: black;">
+                            <mat-icon style="font-size: 19px;">add</mat-icon>
+                        </button>
+                    </div>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)="updateStatus(s)">
+                                <mat-icon style="font-size: 19px;">edit</mat-icon><span
+                                    style="font-size: 14px; margin-left: -12px;">Rename Status</span>
+                            </button>
+                            <button mat-menu-item (click)="deleteStatus(s)" style="margin-top: -15px;">
+                                <mat-icon style="font-size: 20px;">delete_forever</mat-icon><span
+                                    style="font-size: 14px;  margin-left: -12px;">Delete Status</span>
+                            </button>
+                        </mat-menu>
+                    </mat-card>
+                </div>
+            </div>
+
+
+            <!-- ADD STATUS element -->
+            <div style="margin:1%;align-items:flex-end;margin-top: 100px;margin-left: 10px;">
+                <div *ngIf="num==1">
+                <div *ngIf="kanban.emailId===emailId">
+                    <button mat-button (click)="viewStatusForm()">+ Status</button>
+                </div>
+            </div>
+
+
+
+
+                <div *ngIf="num==2"
+                    style="width: 300px;; margin-top: -25px;height: min-content;margin-right: 30px; ">
+                    <form action="submit" #StatusForm="ngForm">
+                        <div class="form-group">
+                            <mat-form-field>
+                                <input matInput name="statusTitle" [(ngModel)]="statusTitle" type="text"
+                                    class="form-control" #kanbanTitle="ngModel" placeholder="Status" required
+                                    maxlength="50" />
+                            </mat-form-field>
+                            <button mat-icon-button color="primary" type="submit" [disabled]=!StatusForm.valid
+                                (click)="createStatus(Status)">
+                                <mat-icon>done</mat-icon>
+                            </button>
+                            <button mat-icon-button color="primary" (click)="cancelMethod()">
+                                <mat-icon>cancel</mat-icon>
+                            </button>
+
+
+
+
+
+                            
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <!-- Add new Task -->
+        <div *ngIf="taskShow ==1">
+            <div *ngIf="kanban.emailId===emailId">
+            <mat-expansion-panel
+                style="display: block;height: min-content;width: min-content;margin-left:300px; width: 300px;">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        + Task
+                    </mat-panel-title>
+
+                </mat-expansion-panel-header>
+
+                <form action="submit" #TaskForm="ngForm">
+
+                    <div class="form-group">
+                        <mat-form-field>
+                            <input matInput name="taskTitle" [(ngModel)]="newTask.taskTitle" type="text"
+                                class="form-control" #taskTitle="ngModel" placeholder="Task Name" required
+                                maxlength="50" />
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <input matInput name="taskContent" [(ngModel)]="newTask.taskContent" type="text"
+                                class="form-control" #taskContent="ngModel" placeholder="Task Description"
+                                maxlength="100" />
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-label>Priority</mat-label>
+                            <mat-select name="priority" [(ngModel)]="newTask.priority">
+                                <mat-option value="High"> High </mat-option>
+                                <mat-option value="Low">Low</mat-option>
+                                <mat-option value="Medium">Medium</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-label>Enter a date range</mat-label>
+                            <mat-date-range-input [rangePicker]="picker" [min]="currentDate">
+                                <input matStartDate placeholder="Start date" name="startDate"
+                                    [(ngModel)]="newTask.startDate" class="form-control" #startDate="ngModel">
+                                <input matEndDate placeholder="End date" name="endDate" [(ngModel)]="newTask.endDate"
+                                    class="form-control" #endDate="ngModel">
+                            </mat-date-range-input>
+                            <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-date-range-picker #picker></mat-date-range-picker>
+                        </mat-form-field>
+                    </div>
+
+                    <button mat-menu-item (click)="assignMethod(newTask)">
+                        <mat-icon style="font-size: 20px;">assign</mat-icon><span
+                            style="font-size: 14px;  margin-left: -12px;">Assign Member</span>
+                    </button>
+
+                    <div style="display: inline-flex;">
+                        <button mat-icon-button color="primary" type="submit" [disabled]=!TaskForm.valid
+                            (click)="saveTask()">
+                            <mat-icon>done</mat-icon>
+                        </button>
+                        <button mat-icon-button color="primary" (click)="nullValues()">
+                            <mat-icon>cancel</mat-icon>
+                        </button>
+                    </div>
+                </form>
+            </mat-expansion-panel>
+        </div>
+    </div>
+
+        <!-- All Tasks -->
+        <div cdkDropListGroup style="display: inline-flex;">
+            <div *ngFor="let taskArray of ArrayOfList" style=" width:300px; margin:1%;">
+
+
+
+                <div *ngIf="!isArray(taskArray); else arrayView"></div>
+                <ng-template #arrayView>
+                    <cdk-virtual-scroll-viewport itemSize="lengthOfArray(taskArray)" style="height:330px;" cdkDropList
+                        [cdkDropListData]="taskArray" (cdkDropListDropped)="drop($event)">
+                        <div class="merge">
+                            <div *ngFor="let task of taskArray" class="task" cdkDrag [cdkDragData]="task">
+                                <div *ngIf="task.taskTitle!=null">
+                                    <mat-card style="margin: 1%;margin-top: 5px;" class="card">
+                                        <mat-card-title
+                                            style="font-size:12px;color: black;margin-left: 6px;">{{task.taskTitle}}</mat-card-title>
+                                        <button mat-icon-button [matMenuTriggerFor]="menu"
+                                            style="margin-left: 230px;margin-top: -40px;align-items: center; color: black;">
+                                            <mat-icon style="font-size: 19px;">more_horiz</mat-icon>
+                                        </button>
+                                        <div
+                                            style="display: flex; margin-left: 220px;margin-top: -35px;margin-bottom: auto;">
+                                            <mat-icon *ngIf="task.priority=='High'"
+                                                style="margin-left:-3px; font-size: 22px; color:red ;">flag</mat-icon>
+                                            <mat-icon *ngIf="task.priority=='Medium'"
+                                                style="margin-left:-3px; font-size: 22px; color:orange;">flag</mat-icon>
+                                            <mat-icon *ngIf="task.priority=='Low'"
+                                                style="margin-left:-3px; font-size: 22px; color:green">flag</mat-icon>
+                                        </div>
+
+                                        <mat-menu #menu="matMenu">
+                                            <button mat-menu-item (click)="updateTask(task)">
+                                                <mat-icon style="font-size: 19px;">edit</mat-icon><span
+                                                    style="font-size: 14px; margin-left: -12px;">Update Task</span>
+                                            </button>
+                                            <button mat-menu-item (click)="deleteTask(task)" style="margin-top: -15px;">
+                                                <mat-icon style="font-size: 20px;">delete_forever</mat-icon><span
+                                                    style="font-size: 14px;  margin-left: -12px;">Delete Task</span>
+                                            </button>
+
+                                            <!-- <button mat-menu-item (click)="assignMethod(task)">
+                                                <mat-icon style="font-size: 20px;">add</mat-icon><span
+                                                    style="font-size: 14px;  margin-left: -12px;">Assign Member</span>
+                                            </button>
+
+                                            <button mat-menu-item (click)="deleteMethod(task)">
+                                                <mat-icon style="font-size: 20px;">delete</mat-icon><span
+                                                    style="font-size: 14px;  margin-left: -12px;">delete Assign </span>
+                                            </button> -->
+                                        </mat-menu>
+                                        <div
+                                            style="display: flex; margin-left: 2px;margin-top: -5px;margin-bottom: auto; font-size: 10px;">
+                                            <mat-card-subtitle style="margin-top: 0px; margin-left:3px">Content :
+                                                {{task.taskContent}}</mat-card-subtitle>
+                                        </div>
+                                        <div style="display: flex;margin-top: -3px;margin-bottom: auto;">
+
+                                            <mat-card-subtitle 
+                                                style="margin-top: 0px; margin-left:6px; font-size: 9px;">Assigned :
+                                                <span *ngFor="let name of task.assignTo" style="margin-left: 2px;">{{name.substring(0,name.length-10)}},</span>
+                                                
+                                               </mat-card-subtitle>
+                                        </div>
+                                    </mat-card>
+                                </div>
+                            </div>
+                        </div>
+                    </cdk-virtual-scroll-viewport>
+                </ng-template>
+            </div>
+        </div>
+    </mat-drawer-content>
+</mat-drawer-container>

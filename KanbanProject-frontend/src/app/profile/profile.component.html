@@ -1,0 +1,56 @@
+<!-- <div style="width: 250px;">
+    <h2 mat-dialog-title style="text-align: center;margin-top: -10px;">Personal Profile</h2>
+
+    
+    <i class="fas fa-user-alt" style="font-size: 20px; margin-top: 10px;margin-left: -21px; float: left;" ></i>
+    <div style="margin-top: 11px;font-size: 14px;margin-left: 28px;">name : {{profile.name}}</div>
+    <i class="fas fa-user-alt" style="font-size: 20px; margin-top: 10px;margin-left: 5px; float: left;" ></i>
+    <div style="margin-top: 10px;font-size: 14px;margin-left: 28px;">address : {{profile.address}}</div>
+    <i class="fa fa-phone" style="font-size: 20px; margin-top: 10px;margin-left: 5px; float: left;" ></i>
+    <div style="margin-top: 10px;font-size: 14px;margin-left: 28px;">Mobile No : {{profile.phoneNumber}}</div>
+    <i class="fa fa-image" style="font-size: 20px; margin-top: 10px;margin-left: 5px; float: left;" ></i>
+    <div style="margin-top: 10px;font-size: 14px;margin-left: 28px;">image : {{profile.file}}</div>
+</div>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+
+
+<form action="submit" style="margin-left: 30px;" >
+    <div style="text-align:center;font-size:15px; font-weight:500; color:rgba(0, 0, 0, 0.594);">Lets's Update!</div>
+    <div>
+      <mat-form-field >
+        <input matInput type="text" class="form-control"placeholder="name"  name= "name" [(ngModel)]="userDetail.name"/>
+      </mat-form-field>
+    </div>
+
+    <div>
+
+    <mat-form-field >
+        <input matInput type="tel" class="form-control" placeholder="phone number"   name= "phoneNumber" [(ngModel)]="userDetail.phoneNumber"/>
+      </mat-form-field>
+    </div>
+
+    <div>
+    <mat-form-field >
+        <input matInput type="text" class="form-control" placeholder="address"  name= "address" [(ngModel)]="userDetail.address"/>
+      </mat-form-field>
+    </div>
+
+
+    <p>Add profile image</p>
+    <input 
+    class="form-control form-control-lg" 
+    id="formFileLg"
+    formControlName="image" type="file" (change)="onChange($event)"
+  />
+
+
+    <div>
+      <button mat-icon-button matTooltip="Update Status" color="primary" type="submit" (click)="UpdateRegisterUserDetails()">
+        <mat-icon >check_circle</mat-icon>
+      </button>
+      
+    </div>
+
+</form>

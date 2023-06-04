@@ -1,0 +1,63 @@
+ <!-- Add new Task
+ <div *ngIf="taskShow ==1">
+
+    <mat-expansion-panel style="display: block;height: min-content;width: min-content;margin: 2%;">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                + Task
+            </mat-panel-title>
+
+        </mat-expansion-panel-header>
+
+        <form action="submit" #TaskForm="ngForm">
+
+            <div class="form-group">
+                <mat-form-field>
+                    <input matInput name="taskTitle" [(ngModel)]="newTask.taskTitle" type="text"
+                        class="form-control" #taskTitle="ngModel" placeholder="Task Name" required
+                        maxlength="50" />
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input matInput name="taskContent" [(ngModel)]="newTask.taskContent" type="text"
+                        class="form-control" #taskContent="ngModel" placeholder="Task Description"
+                        maxlength="100" />
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Priority</mat-label>
+                    <mat-select name="priority" [(ngModel)]="newTask.priority">
+                        <mat-option value="High"> High </mat-option>
+                        <mat-option value="Low">Low</mat-option>
+                        <mat-option value="Medium">Medium</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Enter a date range</mat-label>
+                    <mat-date-range-input [rangePicker]="picker" [min]="currentDate">
+                        <input matStartDate placeholder="Start date" name="startDate"
+                            [(ngModel)]="newTask.startDate" class="form-control" #startDate="ngModel">
+                        <input matEndDate placeholder="End date" name="endDate" [(ngModel)]="newTask.endDate"
+                            class="form-control" #endDate="ngModel">
+                    </mat-date-range-input>
+                    <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                </mat-form-field>
+            </div>
+
+            <div style="display: inline-flex;">
+                <button mat-icon-button color="primary" type="submit" [disabled]=!TaskForm.valid
+                    (click)="saveTask()">
+                    <mat-icon>done</mat-icon>
+                </button>
+                <button mat-icon-button color="primary" (click)="nullValues()">
+                    <mat-icon>cancel</mat-icon>
+                </button>
+            </div>
+        </form>
+    </mat-expansion-panel>
+</div>
+
+ -->

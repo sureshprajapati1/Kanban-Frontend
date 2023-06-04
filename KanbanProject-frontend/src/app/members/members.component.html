@@ -1,0 +1,13 @@
+
+<mat-form-field appeareance="fill">
+    <mat-label>add member</mat-label>
+    <mat-select name="add" [(value)]="emailId">
+      <mat-option *ngFor="let e of email" [value]="e">{{e}}</mat-option>
+    </mat-select>
+</mat-form-field>
+<br>
+<!-- <button click="AddMembersInKanban()">add</button> -->
+<button mat-icon-button color="primary" (click)="AddMembersInKanban()">
+    <mat-icon>add</mat-icon>
+  </button>
+
